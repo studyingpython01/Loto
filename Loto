@@ -1,0 +1,90 @@
+import random
+while True:
+    x1 = random.randint(1, 90)
+    print('Бочонок:', x1)
+    print('----Ваша карточка:----')
+    variables1 = [0] * 9
+    random_indices = random.sample(range(9), 5)
+    for index in random_indices:
+        variables1[index] = random.randint(1, 90)
+    variabless1 = list(map(str, variables1))
+    variabless1 = ' '.join(variabless1)
+    variabless1 = variabless1.replace('0', '')
+    print(variabless1)
+
+    variables1 = [0] * 9
+    random_indices = random.sample(range(9), 5)
+    for index in random_indices:
+        variables1[index] = random.randint(1, 90)
+    variabless11 = list(map(str, variables1))
+    variabless11 = ' '.join(variabless11)
+    variabless11 = variabless11.replace('0', '')
+    print(variabless11)
+
+    variables1 = [0] * 9
+    random_indices = random.sample(range(9), 5)
+    for index in random_indices:
+        variables1[index] = random.randint(1, 90)
+    variabless12 = list(map(str, variables1))
+    variabless12 = ' '.join(variabless12)
+    variabless12 = variabless12.replace('0', '')
+    print(variabless12)
+
+    print('-Карточка компьютера:-')
+
+    variables1 = [0] * 9
+    random_indices = random.sample(range(9), 5)
+    for index in random_indices:
+        variables1[index] = random.randint(1, 90)
+    variabless14 = list(map(str, variables1))
+    variabless14 = ' '.join(variabless14)
+    variabless14 = variabless14.replace('0', '')
+    print(variabless14)
+
+    variables1 = [0] * 9
+    random_indices = random.sample(range(9), 5)
+    for index in random_indices:
+        variables1[index] = random.randint(1, 90)
+    variabless111 = list(map(str, variables1))
+    variabless111 = ' '.join(variabless111)
+    variabless111 = variabless111.replace('0', '')
+    print(variabless111)
+
+    variables1 = [0] * 9
+    random_indices = random.sample(range(9), 5)
+    for index in random_indices:
+        variables1[index] = random.randint(1, 90)
+    variabless3 = list(map(str, variables1))
+    variabless3 = ' '.join(variabless3)
+    variabless3 = variabless3.replace('0', '')
+    print(variabless3)
+    word = input('Зачеркнуть/продолжить (да/нет)?')
+    if word == 'да':
+        if str(x1) in str(variabless1):
+            print('Цифра зачёркнута')
+            variabless1.replace(str(x1), '')
+            pass
+        if str(x1) in str(variabless11):
+            print('Цифра зачёркнута')
+            variabless11.replace(str(x1), '')
+            pass
+        if str(x1) in str(variabless12):
+            print('Цифра зачёркнута')
+            variabless12.replace(str(x1), '')
+            pass
+        else:
+            print('Вы проиграли')
+            break
+    if word == 'нет':
+        if str(x1) in str(variabless1):
+            print('Вы проиграли')
+            break
+        if str(x1) in str(variabless11):
+            print('Вы проиграли')
+            break
+        if str(x1) in str(variabless12):
+            print('Вы проиграли')
+            break
+        else:
+            print('Правильно. Продолжаем.')
+            pass
