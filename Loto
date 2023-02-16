@@ -1,90 +1,89 @@
 import random
+from random import randint
+
+
+class Cards:
+    def __init__(self):
+        self.data = []
+        self.rows = 3
+        self.cols = 9
+        self.nums_in_row = 5
+
+    def generate_unique_numbers(self,counte,minbound,maxbound):
+        ret = []
+        while counte != 0:
+            a = randint(minbound, maxbound)
+            if a in ret:
+                pass
+            else:
+                ret.append(a)
+                counte -= 1
+        return ret
+        #используй библиотеку randint и цикл while, допиши добавление числа в список
+
+    def cards(self):
+        count = self.nums_in_row * self.rows
+        uniques = self.generate_unique_numbers(count, 1, 90)
+
+        for i in range(0, self.rows):
+            tmp = []
+            count = 5
+            uniques.sort()
+            while count != 0:
+                qwe = random.choice(uniques)
+                tmp.append(qwe)
+                uniques.remove(qwe)
+                count -= 1
+           # tmp = сортируем uniques и создем три списка по 5 чисел из списка uniques
+            empty_nums_count = self.cols - self.nums_in_row
+            for j in range(0, empty_nums_count):
+                random_index_1 = randint(0, len(tmp))
+                tmp.insert(random_index_1, 0)
+                #добавляем нули, выбирая рандомно индекс из tmp и вставляя по этому индексу 0
+            self.data += tmp
+        return self.data
+    def cards_form(self, name ):
+        delimiter ='--------------------------'
+        if name == 'Игрок!':
+            delimiter_1 = '-' * 10
+        else :
+            delimiter_1 = '-' * 8
+        ret = delimiter_1 + name + delimiter_1 + '\n'
+        for index, num in enumerate(self.data):
+            if num == 0:
+                ret += '  '
+            elif num == -1:
+                ret += ' -'
+            elif num < 10:
+                ret += f' {str(num)}'
+            else:
+                ret += str(num)
+
+            if (index + 1) % 9 == 0:
+                ret += '\n'
+            else:
+                ret += ' '
+
+        return ret + delimiter
+
+cards_player = Cards()
+cards_comp = Cards()
 while True:
-    x1 = random.randint(1, 90)
-    print('Бочонок:', x1)
-    print('----Ваша карточка:----')
-    variables1 = [0] * 9
-    random_indices = random.sample(range(9), 5)
-    for index in random_indices:
-        variables1[index] = random.randint(1, 90)
-    variabless1 = list(map(str, variables1))
-    variabless1 = ' '.join(variabless1)
-    variabless1 = variabless1.replace('0', '')
-    print(variabless1)
+    print('1. игра против ПК')
+    print('2. игра ПК против ПК')
+    print('3. игра Игрок против Игрока')
+    print('4. ВЫход')
 
-    variables1 = [0] * 9
-    random_indices = random.sample(range(9), 5)
-    for index in random_indices:
-        variables1[index] = random.randint(1, 90)
-    variabless11 = list(map(str, variables1))
-    variabless11 = ' '.join(variabless11)
-    variabless11 = variabless11.replace('0', '')
-    print(variabless11)
-
-    variables1 = [0] * 9
-    random_indices = random.sample(range(9), 5)
-    for index in random_indices:
-        variables1[index] = random.randint(1, 90)
-    variabless12 = list(map(str, variables1))
-    variabless12 = ' '.join(variabless12)
-    variabless12 = variabless12.replace('0', '')
-    print(variabless12)
-
-    print('-Карточка компьютера:-')
-
-    variables1 = [0] * 9
-    random_indices = random.sample(range(9), 5)
-    for index in random_indices:
-        variables1[index] = random.randint(1, 90)
-    variabless14 = list(map(str, variables1))
-    variabless14 = ' '.join(variabless14)
-    variabless14 = variabless14.replace('0', '')
-    print(variabless14)
-
-    variables1 = [0] * 9
-    random_indices = random.sample(range(9), 5)
-    for index in random_indices:
-        variables1[index] = random.randint(1, 90)
-    variabless111 = list(map(str, variables1))
-    variabless111 = ' '.join(variabless111)
-    variabless111 = variabless111.replace('0', '')
-    print(variabless111)
-
-    variables1 = [0] * 9
-    random_indices = random.sample(range(9), 5)
-    for index in random_indices:
-        variables1[index] = random.randint(1, 90)
-    variabless3 = list(map(str, variables1))
-    variabless3 = ' '.join(variabless3)
-    variabless3 = variabless3.replace('0', '')
-    print(variabless3)
-    word = input('Зачеркнуть/продолжить (да/нет)?')
-    if word == 'да':
-        if str(x1) in str(variabless1):
-            print('Цифра зачёркнута')
-            variabless1.replace(str(x1), '')
-            pass
-        if str(x1) in str(variabless11):
-            print('Цифра зачёркнута')
-            variabless11.replace(str(x1), '')
-            pass
-        if str(x1) in str(variabless12):
-            print('Цифра зачёркнута')
-            variabless12.replace(str(x1), '')
-            pass
-        else:
-            print('Вы проиграли')
-            break
-    if word == 'нет':
-        if str(x1) in str(variabless1):
-            print('Вы проиграли')
-            break
-        if str(x1) in str(variabless11):
-            print('Вы проиграли')
-            break
-        if str(x1) in str(variabless12):
-            print('Вы проиграли')
-            break
-        else:
-            print('Правильно. Продолжаем.')
-            pass
+    num = input('Введите номер:')
+    if num == '1':
+        cards_player.cards()
+        print(cards_player.cards_form('Игрок!'))
+        print('                                       ')
+        cards_comp.cards()
+        print(cards_comp.cards_form('Компьютер!'))
+    elif num == '2':
+        pass
+    elif num == '3':
+        pass
+    elif num == '4':
+        break
