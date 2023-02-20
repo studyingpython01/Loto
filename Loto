@@ -1,7 +1,6 @@
 import random
 from random import randint
 
-
 class Cards:
     def __init__(self):
         self.data = []
@@ -9,7 +8,7 @@ class Cards:
         self.cols = 9
         self.nums_in_row = 5
 
-    def generate_unique_numbers(self,counte,minbound,maxbound):
+    def generate_unique_numbers(self, counte, minbound, maxbound):
         ret = []
         while counte != 0:
             a = randint(minbound, maxbound)
@@ -19,7 +18,7 @@ class Cards:
                 ret.append(a)
                 counte -= 1
         return ret
-        #используй библиотеку randint и цикл while, допиши добавление числа в список
+        # используй библиотеку randint и цикл while, допиши добавление числа в список
 
     def cards(self):
         count = self.nums_in_row * self.rows
@@ -34,19 +33,21 @@ class Cards:
                 tmp.append(qwe)
                 uniques.remove(qwe)
                 count -= 1
-           # tmp = сортируем uniques и создем три списка по 5 чисел из списка uniques
+            # tmp = сортируем uniques и создем три списка по 5 чисел из списка uniques
             empty_nums_count = self.cols - self.nums_in_row
             for j in range(0, empty_nums_count):
                 random_index_1 = randint(0, len(tmp))
                 tmp.insert(random_index_1, 0)
-                #добавляем нули, выбирая рандомно индекс из tmp и вставляя по этому индексу 0
+                # добавляем нули, выбирая рандомно индекс из tmp и вставляя по этому индексу 0
             self.data += tmp
+        global data
         return self.data
-    def cards_form(self, name ):
-        delimiter ='--------------------------'
+
+    def cards_form(self, name):
+        delimiter = '--------------------------'
         if name == 'Игрок!':
             delimiter_1 = '-' * 10
-        else :
+        else:
             delimiter_1 = '-' * 8
         ret = delimiter_1 + name + delimiter_1 + '\n'
         for index, num in enumerate(self.data):
@@ -63,9 +64,7 @@ class Cards:
                 ret += '\n'
             else:
                 ret += ' '
-
         return ret + delimiter
-
 cards_player = Cards()
 cards_comp = Cards()
 while True:
@@ -76,14 +75,35 @@ while True:
 
     num = input('Введите номер:')
     if num == '1':
-        cards_player.cards()
-        print(cards_player.cards_form('Игрок!'))
-        print('                                       ')
-        cards_comp.cards()
-        print(cards_comp.cards_form('Компьютер!'))
+        while True:
+            if str(data) == '':
+                break
+            cards_player.cards()
+            print(cards_player.cards_form('Игрок!'))
+            print('                                       ')
+            cards_comp.cards()
+            print(cards_comp.cards_form('Компьютер!'))
+            x1 = random.randint(1, 90)
+            print(x1)
+            ans = input('Зачеркнуть(z)/продолжить(p)')
+            if ans == 'z':
+                if str(x1) in str(cards_player.data):
+                    print('Отлично! Цифра зачёркнута')
+                    data.replace(str(x1), '')
+                else:
+                    print('Неправильно! Вы проиграли')
+                    pass
+            elif ans == 'p':
+                if str(x1) in str(cards_player.data):
+                    print('Неправильно! Вы проиграли')
+                else:
+                    print('Правильно!')
+                    pass
     elif num == '2':
         pass
     elif num == '3':
         pass
     elif num == '4':
         break
+
+ 
