@@ -1,0 +1,22 @@
+import pytest
+import unittest
+from Loto import Cards
+def test_generate_unique_numbers():
+    cards = Cards()
+    counte = 5
+    minbound = 1
+    maxbound = 90
+    
+    result = cards.generate_unique_numbers(counte, minbound, maxbound)
+    assert len(result) == len(set(result))
+
+    for num in result:
+        assert num >= minbound and num <= maxbound
+    assert len(result) == counte
+
+def test_cards():
+    cards = Cards()
+    result = cards.cards()
+    assert isinstance(result, list) and all([isinstance(row, list) for row in result])
+    result = cards.cards()
+    assert len(result) == 27 and len(set(result)) == 15
