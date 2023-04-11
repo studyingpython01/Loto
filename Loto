@@ -3,22 +3,16 @@ from random import randint
 
 class Cards:
     def __init__(self):
-        self.data = []
+        self.data = {}
         self.rows = 3
         self.cols = 9
         self.nums_in_row = 5
 
     def generate_unique_numbers(self, counte, minbound, maxbound):
-        ret = []
-        while counte != 0:
-            a = randint(minbound, maxbound)
-            if a in ret:
-                pass
-            else:
-                ret.append(a)
-                counte -= 1
+        ret = set()
+        while len(ret) != counte:
+            ret.add(randint(minbound, maxbound))
         return ret
-        # используй библиотеку randint и цикл while, допиши добавление числа в список
 
     def cards(self):
         count = self.nums_in_row * self.rows
@@ -27,19 +21,18 @@ class Cards:
         for i in range(0, self.rows):
             tmp = []
             count = 5
-            uniques.sort()
+            uniques = sorted(list(uniques))
             while count != 0:
-                qwe = random.choice(uniques)
-                tmp.append(qwe)
-                uniques.remove(qwe)
+                tmp.append(uniques.pop())
                 count -= 1
-            # tmp = сортируем uniques и создем три списка по 5 чисел из списка uniques
+
             empty_nums_count = self.cols - self.nums_in_row
             for j in range(0, empty_nums_count):
                 random_index_1 = randint(0, len(tmp))
                 tmp.insert(random_index_1, 0)
-                # добавляем нули, выбирая рандомно индекс из tmp и вставляя по этому индексу 0
-            self.data += tmp
+
+            for idx, num in enumerate(tmp):
+                self.data[((i * 10) + (idx + 1))] = num
         global data
         return self.data
 
@@ -50,21 +43,42 @@ class Cards:
         else:
             delimiter_1 = '-' * 8
         ret = delimiter_1 + name + delimiter_1 + '\n'
-        for index, num in enumerate(self.data):
-            if num == 0:
-                ret += '  '
-            elif num == -1:
-                ret += ' -'
-            elif num < 10:
-                ret += f' {str(num)}'
-            else:
-                ret += str(num)
+        for i in range(0, self.rows):
+            for j in range(0, self.cols):
+                index = ((i * 10) + (j + 1))
+                if index in self.data.keys():
+                    num = self.data[index]
+                    if num == 0:
+                        ret += '  '
+                    elif num == -1:
+                        ret += ' -'
+                    elif num < 10:
+                        ret += f' {str(num)}'
+                    else:
+                        ret += str(num)
+                else:
+                    ret += '  '
 
-            if (index + 1) % 9 == 0:
-                ret += '\n'
-            else:
-                ret += ' '
+                if (j + 1) % 9 == 0:
+                    ret += '\n'
+                else:
+                    ret += ' '
+
         return ret + delimiter
+    def __str__(self):
+        return self.cards_form("")
+    def __len__(self):
+        return len(self.data)
+    def __getitem__(self, index):
+        return self.data[index]
+    def __contains__(self, key):
+        return key in self.data.keys()
+    def add(self, key, value):
+        self.data[key] = value
+    def __eq__(self, other):
+        return self.data == other.data and self.rows == other.rows and self.cols == other.cols and self.nums_in_row == other.nums_in_row
+    def __ne__(self, other):
+        return not self.__eq__(other)
 cards_player = Cards()
 cards_comp = Cards()
 while True:
@@ -89,10 +103,10 @@ while True:
             if ans == 'z':
                 if str(x1) in str(cards_player.data):
                     print('Отлично! Цифра зачёркнута')
-                    data.replace(str(x1), '')
+                    cards_player.data[cards_player.data.index(x1)] = -1
                 else:
                     print('Неправильно! Вы проиграли')
-                    pass
+
             elif ans == 'p':
                 if str(x1) in str(cards_player.data):
                     print('Неправильно! Вы проиграли')
@@ -105,5 +119,3 @@ while True:
         pass
     elif num == '4':
         break
-
- 
